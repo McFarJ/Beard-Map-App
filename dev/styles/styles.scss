@@ -1,0 +1,121 @@
+@import 'config';
+@import 'header';
+
+.cls-1, .bckgnd, .skin {
+    fill: #fff;
+  }
+
+
+
+// .loc {fill: #3c6997;}
+.loc {fill: rgba($primary, 0.25);}
+
+
+
+.odd-shaped-location {stroke: blue; background-color: blue;}
+.target {top: 50%; width: 50%; x: "500"}
+.parent-SVG {width:300px;}
+#canvas {border: 2px solid blue}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// .EXAMPLE-change {fill: red;}
+.loc:active, .loc:focus, .loc:hover {fill: rgba($accent3, 0.25);}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.slidecontainer {
+  width: 100%; /* Width of the outside container */
+}
+/* The slider itself */
+.slider {
+  -webkit-appearance: none;  /* Override default CSS styles */
+  appearance: none;
+  width: 100%; /* Full-width */
+  height: 2vw; /* Specified height */
+  // MAX HEIGHT TO BE SET TO 2% OF APP'S MAX WIDTH
+  background: #d3d3d3; /* Grey background */
+  outline: none; /* Remove outline */
+  opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+  -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+  transition: opacity .2s;
+}
+/* Mouse-over effects */
+.slider:hover {
+  opacity: 1; /* Fully shown on mouse-over */
+}
+            // /* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+            // .slider::-webkit-slider-thumb {
+            //   -webkit-appearance: none; /* Override default look */
+            //   appearance: none;
+            //   width: 100px; /* Set a specific slider handle width */
+            //   height: 100px; /* Slider handle height */
+            //   background: url('../../razor-emoji.png'); /* Green background */
+            //   background-size: cover;
+            //   border: none;
+            //   cursor: pointer; /* Cursor on hover */
+            // }
+            // .slider::-moz-range-thumb {
+            //   width: 100px; /* Set a specific slider handle width */
+            //   height: 100px; /* Slider handle height */
+            //   background: url('../../razor-emoji.png'); /* Green background */
+            //   background-size: cover;
+            //   border: none;
+            //   cursor: pointer; /* Cursor on hover */
+            // }
+
+          /* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+          .slider::-webkit-slider-thumb {
+            -webkit-appearance: none; /* Override default look */
+            appearance: none;
+            width: 15vw; /* Set a specific slider handle width */
+            height: 15vw; /* Slider handle height */
+            // MAX HEIGHT & WIDTH TO BE SET TO 2% OF APP'S MAX WIDTH
+            background: url('/images/razor-emoji.png'); /* Green background */
+            background-size: cover;
+            border: none;
+            cursor: pointer; /* Cursor on hover */
+          }
+          .slider::-moz-range-thumb {
+            width: 15vw; /* Set a specific slider handle width */
+            height: 15vw; /* Slider handle height */
+            // MAX HEIGHT & WIDTH TO BE SET TO 2% OF APP'S MAX WIDTH
+            background: url('/images/razor-emoji.png'); /* Green background */
+            background-size: cover;
+            border: none;
+            cursor: pointer; /* Cursor on hover */
+          }

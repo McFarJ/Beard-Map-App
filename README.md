@@ -1,7 +1,1 @@
-From HackerYou https://github.com/HackerYou/react-boilerplate
-
-# Getting Started
-
-1. `git clone` this repo
-2. `npm install`
-3. enjoy!
+This is a web app developed modularly with Sass (CSS), React (JavaScript), and Firebase (Backend database), using the BEM naming convention.
