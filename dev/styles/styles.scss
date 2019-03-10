@@ -1,5 +1,6 @@
 @import 'config';
 @import 'header';
+@import 'saveprompt';
 
 .cls-1, .bckgnd, .skin {
     fill: #fff;
@@ -9,6 +10,8 @@
 
 // .loc {fill: #3c6997;}
 .loc {fill: rgba($primary, 0.25);}
+
+.map__wrapper {padding: 0 2%; position: relative;}
 
 
 
@@ -76,7 +79,7 @@
 }
 /* Mouse-over effects */
 .slider:hover {
-  opacity: 1; /* Fully shown on mouse-over */
+  opacity: 0.99; /* Fully shown on mouse-over */
 }
             // /* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
             // .slider::-webkit-slider-thumb {

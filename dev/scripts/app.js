@@ -3,42 +3,29 @@ import ReactDOM from 'react-dom';
 import html2canvas from 'html2canvas';
 import $ from 'jquery';
 import Header from './header';
-import FaceSvg from './svgs';
+import { FaceSvg } from './svgs';
+import Slider from './slider';
+import Arrow from './saveprompt';
 
 
 
 window.onload = function(){
 
-// ONE
-var BBoxTest = $('#loc-14')[0].getBBox()
-console.log(BBoxTest)
-console.log(`coordinates are ${$('#loc-14').attr('transform')}`)
-  // console.log('bbox result= ' + BBoxResults)
-  // console.log('bboxxxxxxx! ' + BBoxResults.x) 
-  // console.log('bboxyyyyyy! ' + BBoxResults.y) 
-
-  var button = $('#loc-14');
-  console.log(button)
-
-
-  $('#button').css('background-color','blue')
-
 
 class App extends React.Component{
-  
-  
-  
-  
-  
-  
-  
   
   
   render(){
     return(
       <div>
         <Header />
-        <FaceSvg />
+        <div className="map__wrapper">
+          <div className="save-prompt__wrapper">
+            <Arrow />
+          </div>
+          <FaceSvg />
+        </div>
+        <Slider />
       </div>
 
     )
@@ -48,15 +35,15 @@ class App extends React.Component{
 ReactDOM.render(<App/>,document.getElementById('app'));
 
   // TWO
-//   var BBoxTest = $('#loc-14TEST')[0].getBBox()
-// console.log(BBoxTest)
-// console.log(`coordinates are ${$('#loc-14TEST').attr('transform')}`)
-//   // console.log('bbox result= ' + BBoxResults)
-//   // console.log('bboxxxxxxx! ' + BBoxResults.x) 
-//   // console.log('bboxyyyyyy! ' + BBoxResults.y) 
+  var BBoxTest = $('#loc-14TEST')[0].getBBox()
+console.log(BBoxTest)
+console.log(`coordinates are ${$('#loc-14TEST').attr('transform')}`)
+  // console.log('bbox result= ' + BBoxResults)
+  // console.log('bboxxxxxxx! ' + BBoxResults.x) 
+  // console.log('bboxyyyyyy! ' + BBoxResults.y) 
 
-//   var button = $('#loc-14TEST');
-//   console.log(button)
+  var button = $('#loc-14TEST');
+  console.log(button)
 
 
 

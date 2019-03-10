@@ -6,9 +6,11 @@ $flex-item-margin: 1vw;
     width: 100%;
     // height: 5vh;
     display: flex;
+    // padding: 0 1vw;
 }
 .menu {
     flex-grow:1;
+    // min-width: 44px;
     margin-right: $flex-item-margin;
     align-self: center;
     height:10vw;
@@ -24,19 +26,23 @@ $flex-item-margin: 1vw;
     height: 50%;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
+    &:hover{
+        cursor: pointer;
+    }
 }
+
 .menu__line {
     width: 80%;
     border: 0.5vw solid $accent1;
     margin: 0 auto;
 }
-// .menu__first-line {
-//     margin-bottom: 5px;
-// }
-// .menu__last-line {
-//     margin-top: 5px;
-// }
+.menu__first-line {
+    margin-bottom: 0.75vw;
+}
+.menu__last-line {
+    margin-top: 0.75vw;
+}
 .header__title-and-logo {
     display: flex;
 }

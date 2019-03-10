@@ -10,7 +10,7 @@ export default class Header extends React.Component {
                         <div className="menu__line menu__first-line"></div>
                         <div className="menu__line"></div>
                         <div className="menu__line menu__last-line"></div>
-                    </div>
+                    </div >
                     <div className="menu__dropdown">
                     {/* dropdownmenushit */}
                     </div>
