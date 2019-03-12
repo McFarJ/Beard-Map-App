@@ -11,9 +11,72 @@
 	<div id="app">
 	</div>
 
-
+	<script src="https://www.gstatic.com/firebasejs/5.8.6/firebase.js"></script>
 	<script src="public/scripts/app.js"></script>
 	<!-- <script type="text/javascript" src="path_to_rgbcolor.js"></script>  -->
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/canvg/dist/browser/canvg.min.js"></script>
 </body>
 </html>
+
+
+
+
+
+<!-- // CODE PLAN
+
+// 1. FULLY FUNCTIONAL ARROWS
+// each *locArrow location = (half of *locArrow x and y) + (half of *locArrow.attr('transform') x and y)
+// 
+// *locArrows component renders inactive html *locArrow group or user-specific html *locArrow for each html *loc depending on *log-in status
+// 
+// on *loc_target click, slider value = *loc_target rotation; on slider value change, *loc_target rotation = slider value
+// 
+// *saveButton appears when all html *locArrows !inactive
+
+// 2. DYNAMIC LOCATION COLORS
+// hover on *loc adds *loc_hover class(? or is pseudo element enought), *loc_hover has highlight color [DESKTOP-ONLY feature... or atleast unreliable for mobile; need to test devices]
+
+
+
+
+
+
+// SAVEBUTTON {CONNECTED TO STATE OF LOCARROWS COMPONENT}
+// *saveButton appears when all html *locArrows !inactive
+// click controls html2canvas save & Firebase update
+
+// LOCARROWS {CONNECTED TO VAR LOGGEDIN}: 
+// depending on var loggedIn, renders either inactive html *locArrow group or user-specific html *locArrow for each html *loc
+// click on *loc adds *loc_target class (and sets slider value to loc_target's rotation), adds *loc_inactive to other *loc; *loc_target has highlight color, *loc-inactive dims *loc html
+
+// SLIDER
+// click on *loc changes *slider value to *loc_target's corresponding *locArrow rotation
+// changing *slider value updates *loc_target's corresponding *locArrow rotation
+
+
+
+
+// FIREBASE
+
+
+write function in React to effect locArrow rotation change onClick
+check if html2canvas works-- accuracy & speed
+place all locArrows
+link slider to locArrow rotation
+^^^TODAY
+TOMORROW>>>
+set up database, authorization, and link it to app
+set menus and text boxes
+animate save arrow
+
+
+
+// position canvas for html to canvas absolutely and move it out of sight, might need to include 'ignores' ie. >  document.getElementById('button').addEventListener("click", () => canvg(canvas, svg, { ignoreMouse: true, ignoreAnimation: true })) -->
+
+
+<!-- Ternary operator:
+	const headline = (   
+	<h1>
+    { age >= drinkingAge ? 'Buy Drink' : 'Do Teen Stuff' }
+  </h1>
+) -->

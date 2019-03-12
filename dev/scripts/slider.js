@@ -15,7 +15,8 @@ export default class Slider extends React.Component{
     render() {
         return (
             <div className="slidecontainer">
-			    <input type="range" min="0" max="360" value={this.state.value} className="slider" id="myRange" onChange={this.handleChange} />
+			    {/* <input type="range" min="0" max="360" value={this.props.setRotationFromSlider} className="slider" id="myRange"/> */}
+                <input type="range" min="0" max="360" value={this.state.value} className="slider" id="myRange" onChange={this.handleChange} />
 		    </div>
         )
     }

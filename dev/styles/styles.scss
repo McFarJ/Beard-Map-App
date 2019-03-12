@@ -13,6 +13,10 @@
 
 .map__wrapper {padding: 0 2%; position: relative;}
 
+// #locArrow {fill:$primary; transform: scale(12) translate(120px, 350px) rotate(0.25turn) ;}
+.locArrow {fill:$accent3; stroke:$primary; stroke-width: 2; pointer-events: none;}
+
+
 
 
 .odd-shaped-location {stroke: blue; background-color: blue;}
