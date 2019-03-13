@@ -10,6 +10,7 @@ export default class Slider extends React.Component{
 
     handleChange(event) {
         this.setState({value: event.target.value});
+        this.props.obtainRotationFromSlider(this.state.value);
     }
 
     render() {
@@ -21,3 +22,4 @@ export default class Slider extends React.Component{
         )
     }
 }
+

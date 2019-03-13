@@ -1,27 +1,58 @@
 import React from 'react'
+import $ from 'jquery'
 
 export class AuthText extends React.Component{
     constructor(props){
         super(props);
-        this.state = {email: "E-Mail", password: "Password", confirm: "Confirm Password"}
+        this.state = {
+            inputEmail: '', 
+            inputPassword: '', 
+            email: "E-Mail", 
+            password: "Password", 
+            confirm: "Confirm Password"
+        }
 
+        this.gargoyle = 'pink'
         this.handleChange = this.handleChange.bind(this);
+        
+        // will probably need to unbind this..
+        this.getUserInfo = this.getUserInfo.bind(this);
     }
 
-    handleChange(event){
-        this.setState({event.target: event.target.value});
+
+    handleChange(e){
+        var category = e.target.getAttribute('class');
+        // console.log('category is: ' + category)
+        var value = e.target.value; 
+        // console.log('new value is: ' + value)
+        var newState = {};
+        newState[category] = value;
+        // console.log('WTF IS NEWSTATE.CATEGORY ' + newState.category)
+        // console.log('WTF IS NEWSTATE.email ' + newState.email)
+        // console.log('(((THIS))) is... ' + this.gargoyle)
+        this.setState(newState)
+        // console.log('this.state.email: ' + this.state.email)
+        // console.log('this.state.category: ' + this.state[category])
     }
+
+    getUserInfo(e){
+        e.preventDefault();
+        console.log('this.state.email: ' + this.state.email)
+        // return false;
+    }
+
+
 
     render(){
         return(
-            <div className="auth-text">
+            <div className="auth-text auth-text_inactive">
                 <a>Log in</a>
                 <a>Create account</a>
                 <form>
-                    <input value={this.state.email} onChange={handleChange()}></input>
-                    <input value={this.state.password}></input>
+                    <input className="email" placeholder={this.state.email} onChange={this.handleChange}></input>
+                    <input className="password" placeholder={this.state.password} onChange={this.handleChange}></input>
                     <input value={this.state.confirm}></input>
-                    <button>submit</button>
+                    <button onClick={this.getUserInfo}>submit</button>
                 </form>
                 <a>continue as guest</a>
             </div>

@@ -1,5 +1,6 @@
 import React from 'react'
 
+
 export default class Header extends React.Component {
 
     render(){
@@ -19,9 +20,11 @@ export default class Header extends React.Component {
                     <h1 className="header__title">beard map</h1>
                     <div className="header__logo"></div>
                 </div>
-                <button className="saveButton">Save</button>
+                <button className="saveButton" onClick={this.props.onClick}>Save</button>
             </header>
         )
     }
 
 }
+
+// on saveButton click, this.state.saving=true; 
