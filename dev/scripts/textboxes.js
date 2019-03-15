@@ -22,23 +22,16 @@ export class AuthText extends React.Component{
 
     handleChange(e){
         var category = e.target.getAttribute('class');
-        // console.log('category is: ' + category)
         var value = e.target.value; 
-        // console.log('new value is: ' + value)
         var newState = {};
         newState[category] = value;
-        // console.log('WTF IS NEWSTATE.CATEGORY ' + newState.category)
-        // console.log('WTF IS NEWSTATE.email ' + newState.email)
-        // console.log('(((THIS))) is... ' + this.gargoyle)
         this.setState(newState)
-        // console.log('this.state.email: ' + this.state.email)
-        // console.log('this.state.category: ' + this.state[category])
     }
 
     getUserInfo(e){
         e.preventDefault();
         console.log('this.state.email: ' + this.state.email)
-        // return false;
+        console.log('this.state.password: ' + this.state.password)
     }
 
 
