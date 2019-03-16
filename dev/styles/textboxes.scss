@@ -1,8 +1,31 @@
-.main-text {
-    width: 75%;
-}
+.main-text, .save-text, .auth-text, .tips-text{font-family: 'Open Sans', sans-serif;}
 
-.auth-text {position: absolute}
+// CONTROLS
+// .main-text{display: none;}
+.save-text{display: none;}
+.auth-text{display: none;}
+.tips-text{display: none;}
+
+.main-text, .save-text, .auth-text{
+    font-size:3.25vw;
+    position: absolute;
+    padding: 0 4vw;
+    background-color:$accent3;
+    border:2px solid $primary;
+    top: 50%;
+    transform: translate(0,-50%);
+}
+.main-text__p::first-letter {font-size: 150%;}
+.main-text__a {font-size: 110%; color:$accent2; text-decoration: underline;}
+// .main-text__a-guest, .main-text__link-break {float: left; margin: 0;}
+.main-text__menu{display: block; padding-bottom: 2vw;}
+.main-text__menu-item{display: block; padding: 2vw 0;}
+.main-text__a_strong{font-style: italic;}
+
+.tips-text{background-color:$accent3; border:2px solid $primary;}
+
+
+
 
 
 // .auth-text_inactive {display: none;}
@@ -11,7 +34,9 @@
 
 .save-text_inactive {display: none;}
 
+.auth-text__form-select_active {text-decoration: underline;}
 
+.auth-text__form_inactive {display: none;}
 
 
 
