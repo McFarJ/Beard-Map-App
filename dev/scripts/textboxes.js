@@ -1,5 +1,6 @@
 import React from 'react'
 import $ from 'jquery'
+import { throws } from 'assert';
 
 
 export class instructionText extends React.Component{
@@ -13,12 +14,6 @@ export class instructionText extends React.Component{
         )
     }
 }
-
-
-
-
-
-
 
 export class AuthText extends React.Component{
     constructor(props){
@@ -36,6 +31,7 @@ export class AuthText extends React.Component{
         this.createUser = this.createUser.bind(this)
         this.signIn = this.signIn.bind(this)
         this.handleSwitchForms = this.handleSwitchForms.bind(this)
+        this.handleGuestClick = this.handleGuestClick.bind(this)
     }
 
     handleSwitchForms(e){
@@ -50,33 +46,82 @@ export class AuthText extends React.Component{
     }
 
     handleChange(e){
-        var category = e.target.getAttribute('class')
+        var category = e.target.className.split(" ")[0]
         var value = e.target.value
         var newState = {}
         newState[category] = value
         this.setState(newState)
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     createUser(e){
         e.preventDefault()
         var email = this.state.email
         var password = this.state.password
+        var confirm = this.state.confirm
+        if (password == confirm){
         firebase.auth().createUserWithEmailAndPassword(email, password)
-            .catch((error) => console.log(error.code, error.message))
-    }
+            .catch((error) => alert(error.code, error.message))
+            .then((success) => {
+                $('.auth-text').css('display', 'none');
+                this.props.SetLoggedInEmail(email);
+                alert('logged in as ' + email);
+            }),
+                (error) => {return}
+        }
+        else {alert('Please ensure your password and password confirmation fields match.')}
+    }    
 
     signIn(e){
         e.preventDefault();
         var email = this.state.email
         var password = this.state.password
+        var dbRef = firebase.database().ref()
 
         firebase.auth().signInWithEmailAndPassword(email, password)
+            .catch((error) => alert(error.code, error.message))
             .then((success) => {
-                console.log(`Logged in as ${success.email}`)
-                this.props.updateLogInStatus(true)
+                const user = email.replace(/[[&\/\\#,+()$~%.'":*?<>{}]/g, "")
+                const dbRef = firebase.database().ref('users/' + user);
+                dbRef.on("value", (firebaseData) => {
+                    const savedLocArrows= firebaseData.val()
+                    this.props.updateLocArrowsState(savedLocArrows)
+
+                    // this.setState({locArrows: savedLocArrows})
+                    // console.log('check Auth-Text state!')
+                    
+                })
+                this.props.SetLoggedInEmail(email)
+                $('.auth-text').css('display', 'none')
             }), (error) => {
-                console.log(error);
+                alert(error);
             }
+    }
+
+    handleGuestClick(){
+        $('.auth-text').css('display', 'none')
     }
 
     componentDidMount() {
@@ -94,63 +139,67 @@ export class AuthText extends React.Component{
     render(){
         return(
             <div className="auth-text auth-text_inactive">
-                <a className="auth-text__form-select auth-text__form-select_active" onClick={this.handleSwitchForms}>Create account</a>
-                <a className="auth-text__form-select" onClick={this.handleSwitchForms}>Log in</a>
+                <a className="auth-text__a auth-text__form-select auth-text__form-select_active" onClick={this.handleSwitchForms}>Create account</a>
+                <p className="auth-text__p">&nbsp; or &nbsp;</p>
+                <a className="auth-text__a auth-text__form-select" onClick={this.handleSwitchForms}>Log in</a>
                 <form className="auth-text__form auth-text__new-user-form auth-text__form_active" onSubmit={(e) => this.createUser(e)}>
-                    <input className="email" placeholder={this.state.email} onChange={this.handleChange}></input>
-                    <input className="password" placeholder={this.state.password} onChange={this.handleChange}></input>
-                    {/* FIX set value */}
-                    <input value={this.state.confirm}></input>
-                    <button>submit</button>
+                    <input className="email auth-text__input" placeholder={this.state.email} onChange={this.handleChange}></input>
+                    <input className="password auth-text__input" placeholder={this.state.password} onChange={this.handleChange}></input>
+                    <input className="confirm auth-text__input" placeholder={this.state.confirm} onChange={this.handleChange}></input>
+                    <button className="auth-text__submit">submit</button>
                 </form>
                 <form className="auth-text__form auth-text__log-in-form auth-text__form_inactive" onSubmit={(e) => this.signIn(e)}>
-                    <input className="email" placeholder={this.state.email} onChange={this.handleChange}></input>
-                    <input className="password" placeholder={this.state.password} onChange={this.handleChange}></input>
-                    <input value={this.state.confirm}></input>
-                    {/* FIX set value */}
-                    <button>submit</button>
+                    <input className="email auth-text__input" placeholder={this.state.email} onChange={this.handleChange}></input>
+                    <input className="password auth-text__input" placeholder={this.state.password} onChange={this.handleChange}></input>
+                    <button className="auth-text__submit">submit</button>
+                    <input className="placeholder auth-text__input" readOnly="readonly"></input>
                 </form>
-                <a>continue as guest</a>
+                <a className="auth-text__a auth-text__guest" onClick={this.handleGuestClick}>🚪continue as guest</a>
             </div>
         )
     }
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 export class MainText extends React.Component{
+
+    constructor(props){
+        super(props)
+
+        this.onBeginClick = this.onBeginClick.bind(this)
+        this.onMoreInfoClick = this.onMoreInfoClick.bind(this)
+        this.onGrowthClick = this.onGrowthClick.bind(this)
+    }
+
+    onMoreInfoClick(){
+        $('.main-text').css('display', 'none')
+        $('.more-info-text').css('display', 'block')
+    }
+
+    onGrowthClick(){
+        $('.main-text').css('display', 'none')
+        $('.growth-text').css('display', 'block')
+    }
+
+    onBeginClick(){
+        $('.main-text').css('display', 'none')
+        $('.auth-text').css('display', 'block')
+    }
+
     render(){
         return(
             <div className="main-text">
                 <div className="main-text__intro">
                     <p className="main-text__p">Whether you use a straight or double edge razor, or just have sensitive skin and want a better shave, knowing the direction of your beard growth is important.</p>
-                    <p className="main-text__p">Shave direction effects the closeness of your shave, any skin irritation you experience, and even ingrown hairs & cuts. Use this app to map your beard.</p>
+                    <p className="main-text__p">Shave direction effects the closeness of your shave, any skin irritation you experience, even ingrown hairs & cuts. Save the paper, pen, and art skills- use this app to map your beard.</p>
                     {/* <a className="main-text__a main-text__a-guest">continue as guest&nbsp;</a>
                     <p className="main-text__link-break">or</p>
                     <a className="main-text__a main-text__a-auth">&nbsp;create account/log in</a> */}
                 </div>
                 <div className="main-text__menu">
-                    <a className="main-text__a main-text__menu-item">how to determine growth direction</a>
-                    <a className="main-text__a main-text__a_strong main-text__menu-item">begin mapping</a>
-                    <a className="main-text__a main-text__menu-item">more information</a>
+                    <a className="main-text__a main-text__menu-item" onClick={this.onGrowthClick}>how to determine growth direction</a>
+                    <a className="main-text__a main-text__a_strong main-text__menu-item" onClick={this.onBeginClick}>begin mapping</a>
+                    <a className="main-text__a main-text__menu-item" onClick={this.onMoreInfoClick}>more information</a>
                 </div>
             </div>
         )
@@ -165,9 +214,57 @@ export class SaveText extends React.Component{
                     <p className="save-text__p">File saved and account updated.</p>
                 </div>
                 <div className="save-text__unable-text">
-                    <p className="save-text__p">File saved locally but unable to update account.<br />To update account, <a className="save-text__a">log in</a>.</p>
+                    <p className="save-text__p">File saved locally but unable to update account.<br />To update account, <a className="save-text__a">log in</a> and re-save.</p>
                 </div>
             </div>
+        )
+    }
+}
+
+export class GrowthText extends React.Component{
+    constructor(props){
+        super(props)
+
+        this.onClick = this.onClick.bind(this)
+    }
+
+    onClick(){
+        $('.growth-text').css('display', 'none')
+        $('.main-text').css('display', 'block')
+    }
+
+    render(){
+        return(
+           < div className="growth-text">
+            <p>Let your beard grow out for atleast a couple of days, then you can feel with your hands which direction each section grows in. The direction that's smoothest to stroke is the direction of growth; the roughest direction-- the one that provides the most resistance-- is the direction opposite growth direction.</p>
+            <p>A traditional three-pass shave begins shaving first with the grain, then across the grain, and finally against the grain.</p>
+            <a className="growth-text__a growth-text__back" onClick={this.onClick}>back</a>
+           </div>
+        )
+    }
+}
+
+export class MoreInfoText extends React.Component{
+    constructor(props){
+        super(props)
+
+        this.onClick = this.onClick.bind(this)
+    }
+
+    onClick(){
+        $('.more-info-text').css('display', 'none')
+        $('.main-text').css('display', 'block')
+    }
+    
+
+    render(){
+        return(
+           < div className="more-info-text">
+            <a className="more-info-text__a"></a>
+            <a className="more-info-text__a"></a>
+            <a className="more-info-text__a"></a>
+            <a className="more-info-text__a more-info-text__back" onClick={this.onClick}>back</a>
+           </div>
         )
     }
 }
