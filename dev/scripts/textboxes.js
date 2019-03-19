@@ -53,29 +53,6 @@ export class AuthText extends React.Component{
         this.setState(newState)
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     createUser(e){
         e.preventDefault()
         var email = this.state.email
@@ -107,11 +84,7 @@ export class AuthText extends React.Component{
                 const dbRef = firebase.database().ref('users/' + user);
                 dbRef.on("value", (firebaseData) => {
                     const savedLocArrows= firebaseData.val()
-                    this.props.updateLocArrowsState(savedLocArrows)
-
-                    // this.setState({locArrows: savedLocArrows})
-                    // console.log('check Auth-Text state!')
-                    
+                    if (savedLocArrows!=null && savedLocArrows!=undefined){this.props.updateLocArrowsState(savedLocArrows)}
                 })
                 this.props.SetLoggedInEmail(email)
                 $('.auth-text').css('display', 'none')
@@ -235,7 +208,7 @@ export class GrowthText extends React.Component{
 
     render(){
         return(
-           < div className="growth-text">
+            <div className="growth-text">
             <p>Let your beard grow out for atleast a couple of days, then you can feel with your hands which direction each section grows in. The direction that's smoothest to stroke is the direction of growth; the roughest direction-- the one that provides the most resistance-- is the direction opposite growth direction.</p>
             <p>A traditional three-pass shave begins shaving first with the grain, then across the grain, and finally against the grain.</p>
             <a className="growth-text__a growth-text__back" onClick={this.onClick}>back</a>
