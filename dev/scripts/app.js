@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import html2canvas from 'html2canvas';
 import $ from 'jquery';
 import Header from './header';
-import { MainText, AuthText, GrowthText, MoreInfoText } from './textboxes';
+import { MainText, AuthText, GrowthText, MoreInfoText, TipsText } from './textboxes';
 import canvg from 'canvg';
 
 window.onload = function(){
@@ -24,7 +24,7 @@ class App extends React.Component{
     const defaultRotation = 90; 
     const defaultClasses = "locArrow locArrow_inactive"
     this.state = {
-      loggedIn: false,
+      // loggedIn: false,
       rotation: defaultRotation,
       locArrows: [
         {id: "locArrow-1", rotate: defaultRotation, classes: defaultClasses, translate: "860,4650"},
@@ -51,36 +51,31 @@ class App extends React.Component{
         {id: "locArrow-22", rotate: defaultRotation, classes: defaultClasses, translate: "4900,6700"},
         {id: "locArrow-23", rotate: defaultRotation, classes: defaultClasses, translate: "3250,6775"}
       ],
-      saving: false,
       email: null,
       target: null,
-      value: 180
+      value: 180,
+      firstMapClick: true
     }
     this.handleClickMap = this.handleClickMap.bind(this)
     this.handleClickMapAway = this.handleClickMapAway.bind(this)
     this.handleSliderChange = this.handleSliderChange.bind(this)
-    this.updateLogInStatus = this.updateLogInStatus.bind(this)
-
     this.handleSaveClick = this.handleSaveClick.bind(this)
-    this.SetLoggedInEmail = this.SetLoggedInEmail.bind(this)
+    this.setLoggedInEmail = this.setLoggedInEmail.bind(this)
     this.updateLocArrowsState = this.updateLocArrowsState.bind(this)
   }
 
-  componentDidMount(){
-    const dbRef = firebase.database().ref()
-    dbRef.on('value', (response) => {
-      console.log('fuck off' + response.val())
-    })
-  }
+  // componentDidMount(){
+  //   const dbRef = firebase.database().ref()
+  //   dbRef.on('value', (response) => {
+  //     console.log('fuck off' + response.val())
+  //   })
+  // }
 
-  // updateLogInStatus is probably rendered useless by setLoggedInEmail
-  updateLogInStatus(status){
-    this.setState({loggedIn: status})
-  }
-
-
-  SetLoggedInEmail(x){
+  setLoggedInEmail(x){
     this.setState({email: x})
+    $('.loc').not('.loc_set').addClass('loc_set')
+    $('.locArrow').removeClass('locArrow_inactive')
+    console.log('see it does work')
   }
 
   ONLOGIN(){
@@ -97,11 +92,6 @@ class App extends React.Component{
   }
 
   handleSaveClick(){
-    const thisStateEmail = this.state.email;
-    const user = thisStateEmail.replace(/[[&\/\\#,+()$~%.'":*?<>{}]/g, "")
-    const dbRef = firebase.database().ref('users/' + user);
-    const locArrows = this.state.locArrows;
-    dbRef.set(locArrows);
     const svgCss= `<style>.skin {fill:rgb(255, 255, 255);}
     .loc {fill: #CDD9E3;}
     .bckgnd {fill: rgb(255, 255, 255)}
@@ -109,17 +99,36 @@ class App extends React.Component{
     var currentSVG = $('#svg')[0].innerHTML
     var outputSVG = [currentSVG.slice(0, 73), svgCss, currentSVG.slice(73)].join('')
     canvg('canvas', outputSVG, {ignoreMouse: true, ignoreAnimation: true})
-    var image = canvas.toDataURL("image/jpeg").replace("image/jpeg", "image/octet-stream00");
-    window.location.href=image;
-    // ISSUE: downloads without .jpeg ending, opens on Pop_OS, but only opens on old Android with browser, then can download and .jpeg will be there
+    // var image = canvas.toDataURL("image/jpeg").replace("image/jpeg", "image/octet-stream00");
+    var image = canvas.toDataURL("image/jpeg");
+    var a = document.createElement('A');
+    a.href = image;
+    a.download = 'my-beard-map.jpeg';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    const thisStateEmail = this.state.email;
+    if (thisStateEmail!=null){
+      const user = thisStateEmail.replace(/[[&\/\\#,+()$~%.'":*?<>{}]/g, "")
+      const dbRef = firebase.database().ref('users/' + user);
+      const locArrows = this.state.locArrows;
+      dbRef.set(locArrows);
+      alert('Your map is saved. Log in again any time to see your map. Thanks for using The Beard Map App!')
+    }
+    else {
+      alert('Saved locally, but could not save the map to your online account. Log in and save again.')
+      $('[class$="text"]').css('display', 'none')
+      $('.auth-text').css('display', 'block')
+    }
   }
 
   updateLocArrowsState(savedLocArrows){
     this.setState({locArrows: savedLocArrows})
-    console.log('the shit shouldve updated')
   }
 
   handleClickMap(e){
+    $('.tips-text__t1').addClass('tips-text__p_hide')
+    if(this.state.firstMapClick == true){$('.tips-text__t2').removeClass('tips-text__p_hide'); this.setState({firstMapClick: false})}
     $('.loc_active').removeClass('loc_active').addClass('loc_set')
     $(e.target).removeClass('loc_inactive').addClass('loc_active')
     $('.loc').not('.loc_active').addClass('loc_inactive')
@@ -144,6 +153,7 @@ class App extends React.Component{
   }
 
   handleSliderChange(e) {
+    $('.tips-text__t2').addClass('tips-text__p_hide')
     this.setState({value: e.target.value});
     if(this.state.target != null){
       var dummy=this.state.locArrows[this.state.target]
@@ -155,11 +165,12 @@ class App extends React.Component{
   render(){
     const arrowD= "M 0.75,-14.3 l16.5,14.3-16.5,14.3v-6.8h-15v-15h15v-6.8z"
     return(
-      <div>
+      <div className="app__centered-div">
         <Header handleSaveClick={this.handleSaveClick}/>
         <div className="map__wrapper">
-          <MainText />
-          <AuthText updateLogInStatus={this.updateLogInStatus} SetLoggedInEmail={this.SetLoggedInEmail} updateLocArrowsState={this.updateLocArrowsState}/>
+          <TipsText />
+          <MainText userEmail={this.state.email}/>
+          <AuthText setLoggedInEmail={this.setLoggedInEmail} updateLocArrowsState={this.updateLocArrowsState}/>
           <GrowthText />
           <MoreInfoText />
           <div id="svg">
@@ -226,7 +237,5 @@ ReactDOM.render(<App/>,document.getElementById('app'));
 }
 
 // WHEN ERROR on sign in, like 'user not found', DONT continue to map
-// WHEN SIGNING IN, ALL ARROWS BECOME VISIBLE
-// On save html2canvas
-// On save (if logged in), push rotation data
+// Remove html2canvas
 // TIP BOXES

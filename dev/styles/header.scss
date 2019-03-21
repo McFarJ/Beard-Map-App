@@ -4,13 +4,12 @@ $flex-item-margin: 1vw;
 
 .header {
     width: 100%;
-    // height: 5vh;
     display: flex;
-    // padding: 0 1vw;
 }
 .menu {
-    flex-grow:1;
-    // min-width: 44px;
+    flex-grow:999;
+    max-width: 30px;
+    min-width: 15px;
     margin-right: $flex-item-margin;
     align-self: center;
     height:10vw;
@@ -19,9 +18,6 @@ $flex-item-margin: 1vw;
     justify-content: center;
 }
 .menu__icon {
-    // width: 5vw;
-    // align-self: center;
-    // height: 10vw;
     width: 100%;
     height: 50%;
     display: flex;
@@ -35,6 +31,7 @@ $flex-item-margin: 1vw;
 .menu__line {
     width: 80%;
     border: 0.5vw solid $accent1;
+    border-radius: 2px;
     margin: 0 auto;
 }
 .menu__first-line {
@@ -47,6 +44,7 @@ $flex-item-margin: 1vw;
     display: flex;
 }
 .header__title {
+    flex-shrink: 1;
     font-family: 'Abril Fatface', cursive;
     text-transform: uppercase;
     color: $primary;
@@ -55,6 +53,7 @@ $flex-item-margin: 1vw;
     white-space: nowrap;
 }
 .header__logo {
+    flex-shrink: 1;
     margin-left: 1vw;
     background-image: url('/images/beard-map-logo.png');
     background-size: 100% 100%;
@@ -63,9 +62,9 @@ $flex-item-margin: 1vw;
     height: 10vw;
 }
 .saveButton {
+    flex-grow: 1;
     height: 8vw;
     align-self: center;
-    flex-grow:1;
     margin-left: $flex-item-margin;
     background-color: $accent3;
     font-family: 'Abril Fatface', cursive;

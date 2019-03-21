@@ -3,71 +3,27 @@
 @import 'saveprompt';
 @import 'textboxes';
 
-.cls-1, .bckgnd, .skin {
-    fill: #fff;
-  }
-
-
-
+// general
+.invisible-canvas {display: none}
+.map__wrapper {padding: 0 2%; position: relative;}
+// SVG area
+.bckgnd, .skin {fill: hsla(0,0%,100%, 1);}
 .loc {fill: rgba($primary, 0.2);}
 .loc_active {fill: rgba($accent3, 0.25);}
 .loc:active, .loc:focus, .loc:not(.loc_active):hover {fill: rgba($accent1, 0.25);}
 .loc_inactive {fill: rgba($darkerprimary, 0.3);}
-// ^must come after .loc
 .loc_set:not(.loc_active) {fill: rgba($primary, 0.2);}
-
 .locArrow_inactive {display: none}
 .locArrow {fill:$accent3; stroke:$primary; stroke-width: 2; pointer-events: none;}
 .locArrow_target {stroke:$accent1}
-
-
-.map__wrapper {padding: 0 2%; position: relative;}
-
-// #locArrow {fill:$primary; transform: scale(12) translate(120px, 350px) rotate(0.25turn) ;}
-
-
-
-.odd-shaped-location {stroke: blue; background-color: blue;}
-.target {top: 50%; width: 50%; x: "500"}
-.parent-SVG {width:300px;}
-#canvas {border: 2px solid blue}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.slidecontainer {
-  width: 100%; /* Width of the outside container */
-}
+// slider
+.slidecontainer {width: 100%; /* Width of the outside container */}
 /* The slider itself */
 .slider {
   -webkit-appearance: none;  /* Override default CSS styles */
   appearance: none;
   width: 100%; /* Full-width */
   height: 2vw; /* Specified height */
-  // MAX HEIGHT TO BE SET TO 2% OF APP'S MAX WIDTH
   background: #d3d3d3; /* Grey background */
   outline: none; /* Remove outline */
   opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
@@ -75,47 +31,66 @@
   transition: opacity .2s;
 }
 /* Mouse-over effects */
-.slider:hover {
-  opacity: 0.99; /* Fully shown on mouse-over */
+.slider:hover {opacity: 0.99; /* Fully shown on mouse-over */}
+/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  width: 10vw; /* Set a specific slider handle width */
+  height: 10vw; /* Slider handle height */
+  background: url('/images/razor-emoji.png'); 
+  background-size: cover;
+  border: none;
+  cursor: pointer; /* Cursor on hover */
 }
-            // /* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
-            // .slider::-webkit-slider-thumb {
-            //   -webkit-appearance: none; /* Override default look */
-            //   appearance: none;
-            //   width: 100px; /* Set a specific slider handle width */
-            //   height: 100px; /* Slider handle height */
-            //   background: url('../../razor-emoji.png'); /* Green background */
-            //   background-size: cover;
-            //   border: none;
-            //   cursor: pointer; /* Cursor on hover */
-            // }
-            // .slider::-moz-range-thumb {
-            //   width: 100px; /* Set a specific slider handle width */
-            //   height: 100px; /* Slider handle height */
-            //   background: url('../../razor-emoji.png'); /* Green background */
-            //   background-size: cover;
-            //   border: none;
-            //   cursor: pointer; /* Cursor on hover */
-            // }
+.slider::-moz-range-thumb {
+  width: 15vw; /* Set a specific slider handle width */
+  height: 15vw; /* Slider handle height */
+  background: url('/images/razor-emoji.png'); 
+  background-size: cover;
+  border: none;
+  cursor: pointer; /* Cursor on hover */
+}
 
-          /* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
-          .slider::-webkit-slider-thumb {
-            -webkit-appearance: none; /* Override default look */
-            appearance: none;
-            width: 15vw; /* Set a specific slider handle width */
-            height: 15vw; /* Slider handle height */
-            // MAX HEIGHT & WIDTH TO BE SET TO 2% OF APP'S MAX WIDTH
-            background: url('/images/razor-emoji.png'); /* Green background */
-            background-size: cover;
-            border: none;
-            cursor: pointer; /* Cursor on hover */
-          }
-          .slider::-moz-range-thumb {
-            width: 15vw; /* Set a specific slider handle width */
-            height: 15vw; /* Slider handle height */
-            // MAX HEIGHT & WIDTH TO BE SET TO 2% OF APP'S MAX WIDTH
-            background: url('/images/razor-emoji.png'); /* Green background */
-            background-size: cover;
-            border: none;
-            cursor: pointer; /* Cursor on hover */
-          }
+// max-size
+@media screen and (min-width: 565px){
+  // fonts
+  .header__title {font-size: 56.5px}
+  .saveButton {font-size: 28.25px}
+  .main-text, .save-text, .auth-text, .growth-text, .more-info-text {font-size: 18.36px}
+  .main-text__a, .save-text__a, .auth-text__a:not(.auth-text__form-select_active), .growth-text__a, .more-info-text__a:not(.more-info-text__back), .auth-text__a {font-size: 19.775px}
+  .tips-text{font-size: 22.6px}
+  // misc
+  #svg, .slider, .header {max-width: 565px;} 
+  .main-text, .auth-text, .growth-text, .more-info-text {max-width: 491.66px;}
+  .slider {height: 11.3px;}
+  .menu {height: 56.5px;}
+  .map__wrapper {max-width: 565px; box-sizing: border-box; padding: 0 11.3px;}
+  // margins & padding
+  .menu {margin-right: 5.65px;}
+  .saveButton {margin-left: 5.65px;}
+  .header__logo {margin-left: 5.65px; width: 56.5px; height: 56.5px;}
+  .saveButton {height: 45.2px}
+  .menu__line {border: 2.825px solid $accent1;}
+  .slider::-moz-range-thumb {width: 84.75px; height: 84.75px;}
+  .slider::-webkit-slider-thumb {width: 84.75px; height: 84.75px;}
+  .main-text, .save-text, .auth-text, .tips-text, .growth-text, .more-info-text {padding: 0 22.6px}
+  .more-info-text{padding-top:22.6px}
+  .main-text__menu, .more-info-text__a:not(.more-info-text__back){padding-bottom: 11.3px;}
+  .main-text__menu-item{padding: 11.3px 0;}
+  .auth-text__guest {padding-top: 11.3px;}
+  .auth-text__input {margin-bottom: 8.475px;}
+  .more-info-text, .growth-text, .auth-text {padding-bottom: 22.6px;}
+  .menu__first-line {margin-bottom: 4.2375px;}
+  .menu__last-line {margin-top: 4.2375px;}
+  .tips-text__p{padding:11.3px}
+  // center
+  .app__centered-div {max-width: 565px; margin: 0 auto;}
+}
+// extra small-size
+@media screen and (max-width: 377px){
+  .header__title{font-size: 9vw;}
+  .menu{max-width: 20px; min-width: 0;}
+}
+// touch screens
+@media (hover: none) and (pointer: coarse){.slider{opacity:0.99}}

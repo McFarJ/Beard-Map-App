@@ -1,13 +1,22 @@
 import React from 'react'
-
+import $ from 'jquery'
 
 export default class Header extends React.Component {
+    constructor(props){
+        super(props);
+        this.handleClick = this.handleClick.bind(this)
+    }
+
+    handleClick(){
+        $('[class$="-text"]').css('display', 'none')
+        $('.main-text').css('display', 'block')
+    }
 
     render(){
         return(
             <header className="header">
                 <div className="menu">
-                    <div className="menu__icon">
+                    <div className="menu__icon" onClick={this.handleClick}>
                         <div className="menu__line menu__first-line"></div>
                         <div className="menu__line"></div>
                         <div className="menu__line menu__last-line"></div>
@@ -24,7 +33,4 @@ export default class Header extends React.Component {
             </header>
         )
     }
-
 }
-
-// on saveButton click, this.state.saving=true; 

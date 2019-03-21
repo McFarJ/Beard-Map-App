@@ -1,15 +1,12 @@
 import React from 'react'
 import $ from 'jquery'
-import { throws } from 'assert';
 
-
-export class instructionText extends React.Component{
+export class TipsText extends React.Component{
     render(){
         return(
             <div className="tips-text">
-                <p className="tips-text__t1">Select beard location</p>
-                <p className="tips-text__t2">Adjust the slider below</p>
-                <p className="tips-text__t3">Click save at the top of the page</p>
+                <p className="tips-text__t1 tips-text__p tips-text__p_hide">select beard location</p>
+                <p className="tips-text__t2 tips-text__p tips-text__p_hide">adjust the razor slider below</p>
             </div>
         )
     }
@@ -21,11 +18,8 @@ export class AuthText extends React.Component{
         this.state = {
             email: "E-Mail", 
             password: "Password", 
-
-            createEmail: '',
-            createPassword: '',
-
-            confirm: "Confirm Password"
+            confirm: "Confirm Password",
+            loggedIn: false
         }
         this.handleChange = this.handleChange.bind(this)
         this.createUser = this.createUser.bind(this)
@@ -55,56 +49,52 @@ export class AuthText extends React.Component{
 
     createUser(e){
         e.preventDefault()
-        var email = this.state.email
+        var newEmail = this.state.email
         var password = this.state.password
         var confirm = this.state.confirm
         if (password == confirm){
-        firebase.auth().createUserWithEmailAndPassword(email, password)
-            .catch((error) => alert(error.code, error.message))
-            .then((success) => {
+            firebase.auth().createUserWithEmailAndPassword(newEmail, password)
+            .catch(error => {alert(error.code, error.message); return})
+            .then(() => {
+                this.props.setLoggedInEmail(newEmail)
                 $('.auth-text').css('display', 'none');
-                this.props.SetLoggedInEmail(email);
-                alert('logged in as ' + email);
-            }),
-                (error) => {return}
+                alert('logged in as ' + newEmail);
+            })
         }
-        else {alert('Please ensure your password and password confirmation fields match.')}
-    }    
+        else {alert('Please ensure your password and password confirmation fields match.'); return;}   
+        
+    }
 
     signIn(e){
-        e.preventDefault();
-        var email = this.state.email
-        var password = this.state.password
-        var dbRef = firebase.database().ref()
+    e.preventDefault();
+    var email = this.state.email
+    var password = this.state.password
+    firebase.auth().signInWithEmailAndPassword(email, password)
+        .catch((error) => {alert(error.code, error.message); return;})
+    }
 
-        firebase.auth().signInWithEmailAndPassword(email, password)
-            .catch((error) => alert(error.code, error.message))
-            .then((success) => {
+    handleGuestClick(){
+        $('.auth-text').css('display', 'none')
+        $('.tips-text__t1').removeClass('tips-text__p_hide')
+    }
+
+    componentDidMount() {
+        var email = this.state.email
+        firebase.auth().onAuthStateChanged((user) => {
+            if(user) {
+                this.setState({loggedIn: true})
                 const user = email.replace(/[[&\/\\#,+()$~%.'":*?<>{}]/g, "")
                 const dbRef = firebase.database().ref('users/' + user);
                 dbRef.on("value", (firebaseData) => {
                     const savedLocArrows= firebaseData.val()
                     if (savedLocArrows!=null && savedLocArrows!=undefined){this.props.updateLocArrowsState(savedLocArrows)}
                 })
-                this.props.SetLoggedInEmail(email)
+                this.props.setLoggedInEmail(email)
+                $('.main-text').css('display', 'none')
                 $('.auth-text').css('display', 'none')
-            }), (error) => {
-                alert(error);
-            }
-    }
-
-    handleGuestClick(){
-        $('.auth-text').css('display', 'none')
-    }
-
-    componentDidMount() {
-        firebase.auth().onAuthStateChanged((user) => {
-            if(user) {
-                this.setState({loggedIn: true})
-                console.log('logged in')
+                $('.tips-text__t1').removeClass('tips-text__p_hide')
             } else {
                 this.setState({loggedIn: false})
-                console.log('not logged in')
             }
         })
     }
@@ -133,12 +123,9 @@ export class AuthText extends React.Component{
     }
 }
 
-
 export class MainText extends React.Component{
-
     constructor(props){
         super(props)
-
         this.onBeginClick = this.onBeginClick.bind(this)
         this.onMoreInfoClick = this.onMoreInfoClick.bind(this)
         this.onGrowthClick = this.onGrowthClick.bind(this)
@@ -165,9 +152,6 @@ export class MainText extends React.Component{
                 <div className="main-text__intro">
                     <p className="main-text__p">Whether you use a straight or double edge razor, or just have sensitive skin and want a better shave, knowing the direction of your beard growth is important.</p>
                     <p className="main-text__p">Shave direction effects the closeness of your shave, any skin irritation you experience, even ingrown hairs & cuts. Save the paper, pen, and art skills- use this app to map your beard.</p>
-                    {/* <a className="main-text__a main-text__a-guest">continue as guest&nbsp;</a>
-                    <p className="main-text__link-break">or</p>
-                    <a className="main-text__a main-text__a-auth">&nbsp;create account/log in</a> */}
                 </div>
                 <div className="main-text__menu">
                     <a className="main-text__a main-text__menu-item" onClick={this.onGrowthClick}>how to determine growth direction</a>
@@ -197,7 +181,6 @@ export class SaveText extends React.Component{
 export class GrowthText extends React.Component{
     constructor(props){
         super(props)
-
         this.onClick = this.onClick.bind(this)
     }
 
@@ -209,10 +192,10 @@ export class GrowthText extends React.Component{
     render(){
         return(
             <div className="growth-text">
-            <p>Let your beard grow out for atleast a couple of days, then you can feel with your hands which direction each section grows in. The direction that's smoothest to stroke is the direction of growth; the roughest direction-- the one that provides the most resistance-- is the direction opposite growth direction.</p>
-            <p>A traditional three-pass shave begins shaving first with the grain, then across the grain, and finally against the grain.</p>
-            <a className="growth-text__a growth-text__back" onClick={this.onClick}>back</a>
-           </div>
+                <p>Let your beard grow out for atleast a couple of days, then you can feel with your hands which direction each section grows in. The direction that's smoothest to stroke is the direction of growth; the roughest direction-- the one that provides the most resistance-- is the direction opposite growth direction.</p>
+                <p>A traditional three-pass shave begins shaving first with the grain, then across the grain, and finally against the grain.</p>
+                <a className="growth-text__a growth-text__back" onClick={this.onClick}>back</a>
+            </div>
         )
     }
 }
@@ -220,7 +203,6 @@ export class GrowthText extends React.Component{
 export class MoreInfoText extends React.Component{
     constructor(props){
         super(props)
-
         this.onClick = this.onClick.bind(this)
     }
 
@@ -228,15 +210,14 @@ export class MoreInfoText extends React.Component{
         $('.more-info-text').css('display', 'none')
         $('.main-text').css('display', 'block')
     }
-    
 
     render(){
         return(
            < div className="more-info-text">
-            <a className="more-info-text__a"></a>
-            <a className="more-info-text__a"></a>
-            <a className="more-info-text__a"></a>
-            <a className="more-info-text__a more-info-text__back" onClick={this.onClick}>back</a>
+                <a className="more-info-text__a" target="_blank" href="https://www.toolsofmen.com/straight-razor-vs-safety-razor/">Straight Razor vs. Double Edge</a>
+                <a className="more-info-text__a" target="_blank" href="https://scienceofsharp.wordpress.com/2016/04/14/simple-straight-razor-honing/">Razor Honing</a>
+                <a className="more-info-text__a" target="_blank" href="https://www.fendrihan.ca/collections/shaving">Shop</a>
+                <a className="more-info-text__a more-info-text__back" onClick={this.onClick}>back</a>
            </div>
         )
     }

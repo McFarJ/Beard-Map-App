@@ -1,10 +1,7 @@
-.main-text, .save-text, .auth-text, .tips-text, .growth-text, .more-info-text {font-family: 'Open Sans', sans-serif; padding: 4vw;}
+.main-text, .save-text, .auth-text, .tips-text, .growth-text, .more-info-text {font-family: 'Open Sans', sans-serif;}
 
-// CONTROLS
-// .main-text{display: none;}
 .save-text{display: none;}
 .auth-text{display: none; }
-.tips-text{display: none;}
 .growth-text{display: none;}
 .more-info-text{display: none;}
 
@@ -19,19 +16,20 @@
     top: 50%;
     transform: translate(0,-50%);
 }
-// .main-text__p::first-letter {font-size: 200%; line-height: 1vw; }
 
-.main-text__a, .save-text__a, .auth-text__a:not(.auth-text__form-select_active), .growth-text__a, .more-info-text__a {font-size: 110%; color:$accent2; text-decoration: underline;}
-.auth-text__a{font-size: 110%;}
-.main-text__menu{display: block; padding-bottom: 2vw;}
+.main-text__a, .save-text__a, .auth-text__a:not(.auth-text__form-select_active), .growth-text__a, .more-info-text__a {font-size: 3.5vw; color:$accent2; text-decoration: underline;}
+.auth-text__a{font-size: 3.5vw;}
+.main-text__menu, .more-info-text__a{display: block; padding-bottom: 2vw;}
 .main-text__menu-item{display: block; padding: 2vw 0;}
 .main-text__a_strong{font-style: italic;}
 .auth-text__p{display: inline-block;}
-.placeholder{opacity: 0; &:hover{cursor:default}}
+.placeholder{padding: 0; opacity: 0; &:hover{cursor:default}}
 .auth-text__guest {float:right; padding-top: 2vw}
 .auth-text__input {margin-bottom: 1.5vw; box-sizing: border-box;}
 
 .more-info-text, .growth-text, .auth-text {padding-bottom: 4vw;}
+.more-info-text__back{float:right; padding-bottom: 0;}
+.more-info-text{padding-top:4vw}
 
 .email, .password, .confirm{
     display: block;
@@ -47,28 +45,17 @@
     padding: 0;
 }
 
-
-.tips-text{background-color:$accent3; border:2px solid $primary;}
-
-
-
-
+.tips-text{
+    position:absolute;
+    font-size: 4vw;
+}
+.tips-text__p_hide{display: none;}
+.tips-text__p{
+    padding:2vw; 
+    margin: 0;
+    background-color: white;
+    border: 2px solid black;
+}
 
 .auth-text__form-select_active {text-decoration: underline;}
 .auth-text__form_inactive {display: none;}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.testingButton {position: absolute}
