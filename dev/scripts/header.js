@@ -21,9 +21,6 @@ export default class Header extends React.Component {
                         <div className="menu__line"></div>
                         <div className="menu__line menu__last-line"></div>
                     </div >
-                    <div className="menu__dropdown">
-                    {/* dropdownmenushit */}
-                    </div>
                 </div>
                 <div className="header__title-and-logo">
                     <h1 className="header__title">beard map</h1>

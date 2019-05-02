@@ -192,7 +192,7 @@ export class GrowthText extends React.Component{
     render(){
         return(
             <div className="growth-text">
-                <p>Let your beard grow out for atleast a couple of days, then you can feel with your hands which direction each section grows in. The direction that's smoothest to stroke is the direction of growth; the roughest direction-- the one that provides the most resistance-- is the direction opposite growth direction.</p>
+                <p>Let your beard grow out for atleast a couple of days, then you can feel with your hands which direction each section grows in. The direction that's smoothest to stroke is the direction of growth; the roughest direction-- the one that provides the most resistance-- is the direction opposite of the growth direction.</p>
                 <p>A traditional three-pass shave begins shaving first with the grain, then across the grain, and finally against the grain.</p>
                 <a className="growth-text__a growth-text__back" onClick={this.onClick}>back</a>
             </div>

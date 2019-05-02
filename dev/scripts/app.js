@@ -99,7 +99,6 @@ class App extends React.Component{
     var currentSVG = $('#svg')[0].innerHTML
     var outputSVG = [currentSVG.slice(0, 73), svgCss, currentSVG.slice(73)].join('')
     canvg('canvas', outputSVG, {ignoreMouse: true, ignoreAnimation: true})
-    // var image = canvas.toDataURL("image/jpeg").replace("image/jpeg", "image/octet-stream00");
     var image = canvas.toDataURL("image/jpeg");
     var a = document.createElement('A');
     a.href = image;
@@ -238,4 +237,3 @@ ReactDOM.render(<App/>,document.getElementById('app'));
 
 // WHEN ERROR on sign in, like 'user not found', DONT continue to map
 // Remove html2canvas
-// TIP BOXES

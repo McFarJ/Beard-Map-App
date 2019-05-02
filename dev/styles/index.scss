@@ -57,16 +57,17 @@
   // fonts
   .header__title {font-size: 56.5px}
   .saveButton {font-size: 28.25px}
-  .map__wrapper .main-text, .save-text, .auth-text, .growth-text, .map__wrapper .more-info-text {font-size: 18.36px}
-  p {font-size: 19.5px;}
-  .main-text .main-text__a, .save-text__a, .auth-text .auth-text__a:not(.auth-text__form-select_active), .growth-text .growth-text__a, .more-info .more-info-text__a, .auth-text .auth-text__a, .more-info-text .more-info-text__back {font-size: 19.775px}
+  .main-text, .save-text, .auth-text, .growth-text, .more-info-text {font-size: 18.36px}
+  .main-text__a, .save-text__a, .auth-text__a:not(.auth-text__form-select_active), .growth-text__a, .more-info-text__a:not(.more-info-text__back), .auth-text__a {font-size: 19.775px}
+  // .growth-text__back{font-size:2px;}
   .tips-text{font-size: 22.6px}
   // misc
   #svg, .slider, .header {max-width: 565px;} 
-  .map__wrapper .main-text, .map__wrapper .auth-text, .map__wrapper .growth-text, .map__wrapper .more-info-text {max-width: 491.66px;}
+  .main-text, .auth-text, .growth-text, .more-info-text {max-width: 491.66px;}
   .slider {height: 11.3px;}
   .menu {height: 56.5px;}
   .map__wrapper {max-width: 565px; box-sizing: border-box; padding: 0 11.3px;}
+  // margins & padding
   .menu {margin-right: 5.65px;}
   .saveButton {margin-left: 5.65px;}
   .header__logo {margin-left: 5.65px; width: 56.5px; height: 56.5px;}
@@ -74,18 +75,17 @@
   .menu__line {border: 2.825px solid $accent1;}
   .slider::-moz-range-thumb {width: 84.75px; height: 84.75px;}
   .slider::-webkit-slider-thumb {width: 84.75px; height: 84.75px;}
-  .map__wrapper .main-text, .save-text, .map__wrapper .auth-text, .tips-text, .growth-text, .map__wrapper .more-info-text {padding: 0 22.6px}
-  .map__wrapper .more-info-text{padding-top:22.6px}
-  .main-text .main-text__menu, .map__wrapper .more-info-text__a:not(.more-info-text__back){padding-bottom: 11.3px;}
-  .main-text .main-text__menu-item{padding: 11.3px 0;}
-  .auth-text .auth-text__guest {padding-top: 11.3px;}
-  .auth-text .auth-text__input {margin-bottom: 8.475px;}
-  .map__wrapper .auth-text {font-size: 0;}
-  .map__wrapper .more-info-text, .map__wrapper .growth-text, .auth-text {padding-bottom: 22.6px;}
-  .map__wrapper .growth-text {padding-left: 23.44px; padding-right: 23.44px; font-size: 0;}
+  .main-text, .save-text, .auth-text, .tips-text, .growth-text, .more-info-text {padding: 0 22.6px}
+  .more-info-text{padding-top:22.6px}
+  .main-text__menu, .more-info-text__a:not(.more-info-text__back){padding-bottom: 11.3px;}
+  .main-text__menu-item{padding: 11.3px 0;}
+  .auth-text__guest {padding-top: 11.3px;}
+  .auth-text__input {margin-bottom: 8.475px;}
+  .more-info-text, .growth-text, .auth-text {padding-bottom: 22.6px;}
   .menu__first-line {margin-bottom: 4.2375px;}
   .menu__last-line {margin-top: 4.2375px;}
   .tips-text__p{padding:11.3px}
+  // center
   .app__centered-div {max-width: 565px; margin: 0 auto;}
 }
 // extra small-size

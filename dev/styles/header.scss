@@ -1,7 +1,5 @@
 @import 'config';
 
-$flex-item-margin: 1vw;
-
 .header {
     width: 100%;
     display: flex;
@@ -10,7 +8,7 @@ $flex-item-margin: 1vw;
     flex-grow:999;
     max-width: 30px;
     min-width: 15px;
-    margin-right: $flex-item-margin;
+    margin-right: 1vw;
     align-self: center;
     height:10vw;
     display: flex;
@@ -65,7 +63,7 @@ $flex-item-margin: 1vw;
     flex-grow: 1;
     height: 8vw;
     align-self: center;
-    margin-left: $flex-item-margin;
+    margin-left: 1vw;
     background-color: $accent3;
     font-family: 'Abril Fatface', cursive;
     font-size: 5vw;
